@@ -1,0 +1,2 @@
+-module (participant, [Id, FirstName, LastName, Email, PasswordHash]).
+-compile(export_all).
