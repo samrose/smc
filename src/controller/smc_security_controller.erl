@@ -18,3 +18,4 @@ login('POST', []) ->
 
 logout('GET', []) ->
     boss_session:delete_session(SessionID),
+    {redirect, [{action, "login"}]}.
