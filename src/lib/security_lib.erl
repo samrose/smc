@@ -8,6 +8,6 @@ logged_in(SessionID) ->
             {redirect, [{controller, "security"}, {action,"login"}]};
 	ParticipantId ->
 	    Participant = boss_db:find(ParticipantId),
-	    error_logger:info_msg("SessionID: ~p~nAgent: ~p~n", [SessionID, Participant]),
+	    error_logger:info_msg("SessionID: ~p~nParticipant: ~p~n", [SessionID, Participant]),
 	    {ok, Participant}
     end.
