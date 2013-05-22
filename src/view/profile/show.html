@@ -1,4 +1,12 @@
 {% extends "layout/application.html" %}
 {% block content %}
 <h2>Profile for  {{participant.first_name}} {{participant.last_name}}:</h2>
+Classrooms:<br />
+<section>
+<ul>
+  {% for classroom in participant.participant_classroom_memberships %}
+  <li><a href="/classroom/show/{{classroom.classroom.id}}/{{participant.id}}">{{classroom.classroom.name}}</a></li>
+  {% endfor %}
+</ul>
+</section>
 {% endblock %}
