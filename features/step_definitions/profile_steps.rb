@@ -17,6 +17,7 @@ Then(/^I should be redirected to my participant profile$/) do
 end
 
 Then(/^I should see my classrooms\.$/) do
-    pending # express the regexp above with the code you wish you had
+   profile_text = 'Virtual Communities'
+   page.has_content? profile_text
 end
 
