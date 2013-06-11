@@ -36,7 +36,7 @@ participants() ->
   end.
 roles()->
     p("Creating Default Roles"),
-    [(role:new(id, Role)):save() || Role <- ["Admin, Teacher, Student"].      
+    [(role:new(id, Role)):save() || Role <- ["Admin, Teacher, Student"]].      
   
 
 
