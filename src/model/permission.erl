@@ -1,0 +1,1 @@
+-module(permission, [Id, Name, Attributes]).

@@ -5,9 +5,11 @@
 
 exec_all() ->
   classrooms(),
-  participants().
+  participants(),
+  roles().
 p(Arg) ->
       io:format("Creating ~s...~n", [Arg]).
+
 classrooms()->
   p("Creating Classrooms"),
   case boss_db:find(classroom, [{name, "Virtual Communities"}]) of
@@ -32,5 +34,9 @@ participants() ->
     {error, Reason} ->
       Reason
   end.
+roles()->
+    p("Creating Default Roles"),
+    [(role:new(id, Role)):save() || Role <- ["Admin, Teacher, Student"].      
+  
 
 
