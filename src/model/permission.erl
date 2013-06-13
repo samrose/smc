@@ -1,1 +1,1 @@
--module(permission, [Id, Name, Attributes]).
+-module(permission, [Id, Name, Attributes,ParticipantId,RoleId]).
