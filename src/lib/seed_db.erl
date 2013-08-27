@@ -20,7 +20,7 @@ classrooms()->
  end.
 
 participants() ->
-  p("Creating Students and joinging Classrooms"),
+  p("Creating Students and joining Classrooms"),
   Classroom1Id = (boss_db:find_first(classroom, [{name, "Virtual Communities"}])):id(),
   Classroom2Id = (boss_db:find_first(classroom, [{name, "Cooperation and Collaboration"}])):id(),
   Classroom3Id = (boss_db:find_first(classroom, [{name, "NetSmart:How to thrive online"}])):id(),

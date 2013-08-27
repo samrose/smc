@@ -5,7 +5,7 @@ Classrooms:<br />
 <section>
 <ul>
   {% for classroom in participant.participant_classroom_memberships %}
-  <li><a href="/classroom/show/{{classroom.classroom.id}}/{{participant.id}}">{{classroom.classroom.name}}</a></li>
+  <li><a href="/classroom/show/{{classroom.classroom.id}}">{{classroom.classroom.name}}</a></li>
   {% endfor %}
 </ul>
 </section>

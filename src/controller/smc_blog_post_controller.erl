@@ -5,3 +5,6 @@
 create('GET', []) ->
     %% Create; renders create page                                                                                                                                                                          
     {ok, []};
+
+show('GET', []) ->
+    {ok, []};
