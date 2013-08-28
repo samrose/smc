@@ -3,7 +3,7 @@
 logged_in(SessionID) ->
     case boss_session:get_session_data(SessionID, participant_id) of
         undefined ->
-	    error_logger:warn_msg("Not logged in, redirecting~n"),
+	    error_logger:warning_msg("Not logged in, redirecting~n"),
             {redirect, [{controller, "security"}, {action,"login"}]};
 	ParticipantId ->
 	    Participant = boss_db:find(ParticipantId),
@@ -13,10 +13,10 @@ logged_in(SessionID) ->
 classroom_member(SessionID,ClassroomId) ->
    CurrentParticipantId = boss_session:get_session_data(SessionID, participant_id),
    Result = boss_db:find(participant_classroom_membership, [{participant_id,CurrentParticipantId},{classroom_id,ClassroomId}]),
-   io:format("Result: ~p~n", [Result]),
+   error_logger:info_msg("Result: ~p~n", [Result]),
    case Result of
         [] ->
-	    error_logger:warn_msg("Not a member of classroom, redirecting~n"),
+	    error_logger:warning_msg("Not a member of classroom, redirecting~n"),
 	    false;
         _ ->
 	    true

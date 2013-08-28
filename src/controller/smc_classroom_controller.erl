@@ -4,6 +4,7 @@
 before_(_) ->
         security_lib:logged_in(SessionID).
 show('GET', [ClassroomId], Security) ->
+        %CurrentParticipantId = boss_db:find(SessionID,participant_id),
 	case security_lib:classroom_member(SessionID,ClassroomId) of
 	    false ->
     	        error_logger:info_msg("You are not member of classroom"),
