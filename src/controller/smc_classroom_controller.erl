@@ -4,11 +4,13 @@
 before_(_) ->
         security_lib:logged_in(SessionID).
 show('GET', [ClassroomId], Security) ->
-        %CurrentParticipantId = boss_db:find(SessionID,participant_id),
+        CurrentParticipantId = boss_session:get_session_data(SessionID,participant_id),
+	error_logger:info_msg("ParticipantID: ~p~n", [CurrentParticipantId]),
 	case security_lib:classroom_member(SessionID,ClassroomId) of
 	    false ->
-    	        error_logger:info_msg("You are not member of classroom"),
-                {redirect, [{controller, "smc_profile"},{action,"show"}]};
+    	        error_logger:info_msg("Participant is not a member of this classroom"),
+			boss_flash:add(SessionID, notice, "Sorry!", "Your are not a member of that classroom ..."),
+                {redirect, "/profile/show/"++CurrentParticipantId};
 	    true ->  
                 Classroom = boss_db:find(ClassroomId),
     	        error_logger:info_msg("Classroom Controller: show classroom:~p~n", [Classroom]),

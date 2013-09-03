@@ -9,5 +9,6 @@
     {% block javascript %}{% endblock %}
   </head>
   <body>
+    {% for flash in boss_flash %} <div class="alert alert-block"><h4>{{ flash.title }}</h4>{{ flash.message }} </div>{% endfor %}
     {% block content%}{% endblock %}
   </body>
