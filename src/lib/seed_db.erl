@@ -7,12 +7,13 @@ exec_all() ->
   classrooms(),
   participants(),
   roles().
+ % blog_posts().
 p(Arg) ->
       io:format("Creating ~s...~n", [Arg]).
 
 classrooms()->
   p("Creating Classrooms"),
-  case boss_db:find(classroom, [{name, "Virtual Communities"}]) of
+	case boss_db:find(classroom, [{name, "Virtual Communities"}]) of
    [Classroom1] ->
      ok;
    [] ->	
@@ -21,9 +22,9 @@ classrooms()->
 
 participants() ->
   p("Creating Students and joining Classrooms"),
-  Classroom1Id = (boss_db:find_first(classroom, [{name, "Virtual Communities"}])):id(),
-  Classroom2Id = (boss_db:find_first(classroom, [{name, "Cooperation and Collaboration"}])):id(),
-  Classroom3Id = (boss_db:find_first(classroom, [{name, "NetSmart:How to thrive online"}])):id(),
+	Classroom1Id = (boss_db:find_first(classroom, [{name, "Virtual Communities"}])):id(),
+	Classroom2Id = (boss_db:find_first(classroom, [{name, "Cooperation and Collaboration"}])):id(),
+	Classroom3Id = (boss_db:find_first(classroom, [{name, "NetSmart:How to thrive online"}])):id(),
   NewParticipant = participant:new(id, "Jane", "Student", "email@example.com", mochihex:to_hex(crypto:sha512("test" ++ "email@example.com"))),
   case  NewParticipant:save() of
     {ok, SavedParticipant} ->
@@ -38,5 +39,17 @@ roles()->
     p("Creating Default Roles"),
     [(role:new(id, Role)):save() || Role <- ["Admin, Teacher, Student"]].      
   
-
+%blog_posts()->
+%	p("Creating blog posts"),
+%	  ParticipantId = boss_db:find(participant,[{email,"email@example.com"}]),
+%	  BlogClassroom1Id = (boss_db:find_first(classroom, [{name, "Virtual Communities"}])):id(),
+%	  BlogClassroom2Id = (boss_db:find_first(classroom, [{name, "Cooperation and Collaboration"}])):id(),
+%	  BlogClassroom3Id = (boss_db:find_first(classroom, [{name, "NetSmart:How to thrive online"}])):id(),
+%	  BlogPost1 = boss_db:find(blog_post, [{title, "Title One"}]),
+%	case BlogPost1 of
+%		[BlogPost1] ->
+%			ok;
+%		[] ->
+%	[(blog_post:new(id,ClassroomId,ParticipantId,Title,Body)):save() || ClassroomId <- [BlogClassroom1Id,BlogClassroom2Id,BlogClassroom3Id], Title <- ["Title One","Title Two","Title Three"], Body <- ["Lorem ipsum dolor sit amet, consectetur adipiscing elit","Lorem ipsum dolor sit amet, consectetur adipiscing elit","Lorem ipsum dolor sit amet, consectetur adipiscing elit"]]
+%	end.	
 
