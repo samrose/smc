@@ -1,4 +1,12 @@
 {% extends "layout/application.html" %}
 {% block content %}
 <h2>Welcome to {{classroom.name}}</h2>
+<div class="well span-6">
+  <h2>Blog Posts</h2>
+    <ul>
+      {% for blog_post in classroom.blog_posts %}
+        <li><a href="/blog_post/show/{{blog_post.id}}">{{blog_post.title}}</a></li>
+      {% endfor %}
+    </ul>
+ </div>
 {% endblock %}

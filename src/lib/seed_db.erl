@@ -6,8 +6,8 @@
 exec_all() ->
   classrooms(),
   participants(),
-  roles().
- % blog_posts().
+  %roles().
+  blog_posts().
 p(Arg) ->
       io:format("Creating ~s...~n", [Arg]).
 
@@ -36,21 +36,17 @@ participants() ->
     {error, Reason} ->
       Reason
   end.
-roles()->
-    p("Creating Default Roles"),
-    [(role:new(id, Role)):save() || Role <- ["Admin, Teacher, Student"]].      
+%roles()->
+ %   p("Creating Default Roles"),
+ %   [(role:new(id, Role)):save() || Role <- ["Admin, Teacher, Student"]].      
   
-%blog_posts()->
-%	p("Creating blog posts"),
-%	  ParticipantId = boss_db:find(participant,[{email,"email@example.com"}]),
-%	  BlogClassroom1Id = (boss_db:find_first(classroom, [{name, "Virtual Communities"}])):id(),
-%	  BlogClassroom2Id = (boss_db:find_first(classroom, [{name, "Cooperation and Collaboration"}])):id(),
-%	  BlogClassroom3Id = (boss_db:find_first(classroom, [{name, "NetSmart:How to thrive online"}])):id(),
-%	  BlogPost1 = boss_db:find(blog_post, [{title, "Title One"}]),
-%	case BlogPost1 of
-%		[BlogPost1] ->
-%			ok;
-%		[] ->
-%	[(blog_post:new(id,ClassroomId,ParticipantId,Title,Body)):save() || ClassroomId <- [BlogClassroom1Id,BlogClassroom2Id,BlogClassroom3Id], Title <- ["Title One","Title Two","Title Three"], Body <- ["Lorem ipsum dolor sit amet, consectetur adipiscing elit","Lorem ipsum dolor sit amet, consectetur adipiscing elit","Lorem ipsum dolor sit amet, consectetur adipiscing elit"]]
-%	end.	
+blog_posts()->
+	p("Creating blog posts"),
+	Participant = boss_db:find_first(participant,[{email,"email@example.com"}]),
+	ParticipantId = Participant:id(),
+	  BlogClassroom1Id = (boss_db:find_first(classroom, [{name, "Virtual Communities"}])):id(),
+	  BlogClassroom2Id = (boss_db:find_first(classroom, [{name, "Cooperation and Collaboration"}])):id(),
+	  BlogClassroom3Id = (boss_db:find_first(classroom, [{name, "Net Smart: How to thrive online"}])):id(),
+	BlogPost1 = blog_post:new(id,BlogClassroom1Id,ParticipantId,"Title One","Lorem Ipsum all that JAZZ",[],[]),
+	BlogPost1:save().
 

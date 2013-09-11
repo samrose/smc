@@ -14,8 +14,9 @@ show('GET', [ClassroomId], Security) ->
 	    true ->  
                 Classroom = boss_db:find(ClassroomId),
     	        error_logger:info_msg("Classroom Controller: show classroom:~p~n", [Classroom]),
+	        BlogPosts = Classroom:blog_posts(),
 	        %%{json, [{success, true}, {message, ''}, {doc, [{agent, Participant}, {classroom, Classroom}]}]}.
-    	        {ok, [{classroom, Classroom}]}
+    	        {ok, [{classroom, Classroom},{blog_posts, BlogPosts}]}
         end.
 index('GET', ["participant-" ++ _ = ParticipantId], Security) ->
     Participant = boss_db:find(ParticipantId),
