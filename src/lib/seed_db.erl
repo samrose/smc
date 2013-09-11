@@ -13,18 +13,19 @@ p(Arg) ->
 
 classrooms()->
   p("Creating Classrooms"),
-	case boss_db:find(classroom, [{name, "Virtual Communities"}]) of
-   [Classroom1] ->
-     ok;
-   [] ->	
-     [(classroom:new(id, Name,Description,Image)):save() || Name <- ["Virtual Communities","Cooperation and Collaboration","NetSmart:How to thrive online"], Description <- ["Lorem ipsum dolor sit amet, consectetur adipiscing elit","Lorem ipsum dolor sit amet, consectetur adipiscing elit","Lorem ipsum dolor sit amet, consectetur adipiscing elit"], Image <- [{},{},{}]]
- end.
+	NewClass1 = classroom:new(id,"Virtual Communities","Lorem ipsum dolor sit amet, consectetur adipiscing elit",[]),
+	NewClass2 = classroom:new(id,"Cooperation and Collaboration","Lorem ipsum dolor sit amet, consectetur adipiscing elit",[]),
+	NewClass3 = classroom:new(id,"Net Smart: How to thrive online","Lorem ipsum dolor sit amet, consectetur adipiscing elit",[]),
+  NewClass1:save(),
+  NewClass2:save(), 
+  NewClass3:save().
+       
 
 participants() ->
   p("Creating Students and joining Classrooms"),
 	Classroom1Id = (boss_db:find_first(classroom, [{name, "Virtual Communities"}])):id(),
 	Classroom2Id = (boss_db:find_first(classroom, [{name, "Cooperation and Collaboration"}])):id(),
-	Classroom3Id = (boss_db:find_first(classroom, [{name, "NetSmart:How to thrive online"}])):id(),
+	Classroom3Id = (boss_db:find_first(classroom, [{name, "Net Smart: How to thrive online"}])):id(),
   NewParticipant = participant:new(id, "Jane", "Student", "email@example.com", mochihex:to_hex(crypto:sha512("test" ++ "email@example.com"))),
   case  NewParticipant:save() of
     {ok, SavedParticipant} ->
