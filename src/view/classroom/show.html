@@ -1,6 +1,7 @@
 {% extends "layout/application.html" %}
 {% block content %}
 <h2>Welcome to {{classroom.name}}</h2>
+{% if classroom.blog_posts %}
 <div class="well span-6">
   <h2>Blog Posts</h2>
     <ul>
@@ -9,4 +10,5 @@
       {% endfor %}
     </ul>
  </div>
+ {% endif %}
 {% endblock %}
