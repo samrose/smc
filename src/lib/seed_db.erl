@@ -48,5 +48,7 @@ blog_posts()->
 	  BlogClassroom2Id = (boss_db:find_first(classroom, [{name, "Cooperation and Collaboration"}])):id(),
 	  BlogClassroom3Id = (boss_db:find_first(classroom, [{name, "Net Smart: How to thrive online"}])):id(),
 	BlogPost1 = blog_post:new(id,BlogClassroom1Id,ParticipantId,"Title One","Lorem Ipsum all that JAZZ",[],[]),
-	BlogPost1:save().
+	BlogPost1:save(),
 
+	BlogPost2 = blog_post:new(id,BlogClassroom1Id,ParticipantId,"Title Two","Lorem Ipsum all that JAZZ",[],[]),
+	BlogPost2:save().

@@ -16,5 +16,18 @@ index('GET', [ClassroomId],Security) ->
 % {ok, SavedGreeting} = NewGreeting:save(),
 % {redirect, [{action, "list"}]}.
 
-show('GET', []) ->
-    {ok, []}.
+show('GET', [BlogPostId], Security) ->
+        BlogPost =  boss_db:find(BlogPostId),
+        Classroom = BlogPost:classroom_id(),
+        CurrentParticipantId = boss_session:get_session_data(SessionID,participant_id),
+        error_logger:info_msg("ParticipantID: ~p~n", [CurrentParticipantId]),
+        case security_lib:classroom_member(SessionID,Classroom) of
+            false ->
+                error_logger:info_msg("Participant is not a member of this classroom"),
+                        boss_flash:add(SessionID, notice, "Sorry!", "Your are not a member of that classroom ..."),
+                {redirect, "/profile/show/"++CurrentParticipantId};
+            true ->
+                error_logger:info_msg("Blog Post Controller: show classroom:~p~n", [BlogPost]),
+                %%{json, [{success, true}, {message, ''}, {doc, [{agent, Participant}, {classroom, Classroom}]}]}.
+                {ok, [{blog_post, BlogPost}]}
+        end.
