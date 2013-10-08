@@ -7,7 +7,8 @@ exec_all() ->
   classrooms(),
   participants(),
   %roles().
-  blog_posts().
+  blog_posts(),
+  blog_post_comments().
 p(Arg) ->
       io:format("Creating ~s...~n", [Arg]).
 
@@ -52,3 +53,12 @@ blog_posts()->
 
 	BlogPost2 = blog_post:new(id,BlogClassroom1Id,ParticipantId,"Title Two","Lorem Ipsum all that JAZZ",[],[]),
 	BlogPost2:save().
+
+blog_post_comments()->
+	p("Creating Blog Post Comments"),
+
+	CommentingParticipant = boss_db:find_first(participant,[{email,"email@example.com"}]),
+	CommentingParticipantId = CommentingParticipant:id(),
+	BlogPost1Id = (boss_db:find_first(blog_post, [{title, "Title One"}])):id(),
+	BlogPostComment1 = blog_post_comment:new(id,BlogPost1Id,CommentingParticipantId,"Comment Title","Comment Body",[],[]),
+	BlogPostComment1:save().
