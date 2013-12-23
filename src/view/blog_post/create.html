@@ -1,15 +1,18 @@
 {% extends "layout/application.html" %}
 {% block content %}
-<form>
-  <fieldset>
-    <legend>Legend</legend>
-    <label>Label name</label>
-    <input type="text" placeholder="Type something…">
-    <span class="help-block">Example block-level help text here.</span>
-    <label class="checkbox">
-      <input type="checkbox"> Check me out
-    </label>
-    <button type="submit" class="btn">Submit</button>
-  </fieldset>
+<h1>Create a new blog post</h1>
+{% if errors %}
+<ul>
+  {% for error in errors %}
+    <li><p style="color: red;">{{error }}</p></li>
+  {% endfor %}
+</ul>
+{% endif %}
+<form action="/blog_post/create" method="post">
+	<label>Title:</label>
+	<input type="text" name="title">{% if blog_post %}{{ blog_post.title }}{% endif %}
+	<label>Body:</label>
+  	<textarea name="body">{% if blog_post %}{{ blog_post.body }}{% endif %}</textarea>
+  	<input type="submit">
 </form>
 {% endblock %}

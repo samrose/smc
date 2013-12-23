@@ -3,11 +3,11 @@
 <h2>{{blog_post.title}}</h2>
 <p>{{blog_post.body}}</p>
 {% if blog_post.blog_post_comments %}
-<div class="span-6">
+<div class="span6">
   <h3>Comments</h3>
-    <ul>
+    <uli class="comments">
       {% for blog_post_comment in blog_post.blog_post_comments %}
-      <li><div class="well"><p>{{blog_post_comment.title}}</p><p>{{blog_post_comment.body}}</p></div></li>
+      <li><div class="span6"><h4>{{blog_post_comment.title}}</h4><p>{{blog_post_comment.body}}</p></div></li>
       {% endfor %}
     </ul>
  </div>

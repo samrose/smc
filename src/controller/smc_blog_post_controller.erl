@@ -6,15 +6,21 @@ before_(_) ->
 index('GET', [ClassroomId],Security) ->
 	BlogPosts = boss_db:find(blog_post, [{classroom_id, ClassroomId}]),
 	{ok, [{blog_posts,BlogPosts}]}.
+create('GET', [], Security) ->
+	    ok;
+create('POST', [], Security) ->
+  Now = erlang:now(),
+  Title = Req:post_param("title"),
+  Body = Req:post_param("body"),
+  ClassroomId = "test",
+  ParticipantId = "test",
+  CreatedOn = Now,
+  ModifiedOn = Now,	
 
-%create('GET', []) ->
- %ok;
+  BlogPost = blog_post:new(id,ClassroomId,ParticipantId, Title, Body, CreatedOn,ModifiedOn),
+  BlogPost:save(),
 
-%create('POST', []) ->
-% GreetingText = Req:post_param("greeting_text"),
-% NewGreeting = greeting:new(id, GreetingText),
-% {ok, SavedGreeting} = NewGreeting:save(),
-% {redirect, [{action, "list"}]}.
+	{redirect, "/"}.
 
 show('GET', [BlogPostId], Security) ->
         BlogPost =  boss_db:find(BlogPostId),
