@@ -12,4 +12,13 @@
     </ul>
  </div>
  {% endif %}
+ <form method="post">
+	 Subject:<br />
+	 <input name="title" /><br /><br />
+
+	 Comment:<br />
+	 <input name="body" /><br /><br />
+	 <input type="submit" value="Post comment" />
+	 <input type="hidden" name="redirect" value="{{ redirect|default_if_none:"/blog_post/show" }}" />
+ </form>
 {% endblock %}

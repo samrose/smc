@@ -1,7 +1,5 @@
 ebin
 log/*
-boss.config
-boss.test.config
 .eunit/
 .DS_Store
 deps
