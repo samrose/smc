@@ -1,23 +1,29 @@
-% Routes file.
+%%% -*- mode: erlang -*-
+%%% Routes file.
+%%% Formats: 
+%%%   {"/some/route", [{controller, "Controller"}, {action, "Action"}]}.
+%%%   {"/some/route", [{controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
+%%%   {"/(some|any)/route/(\\d+)", [{controller, '$1'}, {action, "Action"}, {id, '$2'}]}.
+%%%   {"/some/route/(?<route_id>\\d+)", [{controller, "Controller"}, {action, "Action"}, {id, '$route_id'}]}.
+%%%   {"/some/route", [{application, some_app}, {controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
+%%%
+%%%   {404, [{controller, "Controller"}, {action, "Action"}]}.
+%%%   {404, [{controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
+%%%   {404, [{application, some_app}, {controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
 
-% Formats: 
-%   {"/some/route", [{controller, "Controller"}, {action, "Action"}]}.
-%   {"/some/route", [{controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
-%   {"/(some|any)/route/(\\d+)", [{controller, '$1'}, {action, "Action"}, {id, '$2'}]}.
-%   {"/some/route/(?<route_id>\\d+)", [{controller, "Controller"}, {action, "Action"}, {id, '$route_id'}]}.
-%   {"/some/route", [{application, some_app}, {controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
-%
-%   {404, [{controller, "Controller"}, {action, "Action"}]}.
-%   {404, [{controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
-%   {404, [{application, some_app}, {controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
-%
-% Note that routing across applications results in a 302 redirect.
+%% Note that routing across applications results in a 302 redirect.
 
 {"/", [{controller, "security"}, {action, "login"}]}.
+
+%% Security related actions
 {"/login", [{controller, "security"}, {action, "login"}]}.
 {"/logout", [{controller, "security"}, {action, "logout"}]}.
-{"/profile", [{controller, "profile"}, {action, "show"}]}.
-% 404 File Not Found handler
-% {404, [{controller, "world"}, {action, "lost"}]}.
-% 500 Internal Error handler (only invoked in production)
-% {500, [{controller, "world"}, {action, "calamity"}]}.
+
+%% Profile related
+%% TODO: Find out if it can be done without this route
+%% {"/profile", [{controller, "profile"}, {action, "index"}]}.
+
+%% 404 File Not Found handler
+%% {404, [{controller, "world"}, {action, "lost"}]}.
+%% 500 Internal Error handler (only invoked in production)
+%% {500, [{controller, "world"}, {action, "calamity"}]}.

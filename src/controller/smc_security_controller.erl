@@ -10,7 +10,7 @@ login('POST', []) ->
     case boss_db:find(participant, [{email, Email}, {password_hash, PasswordHash}]) of
 	[Participant] ->
 	    boss_session:set_session_data(SessionID, participant_id, Participant:id()),
-	    {redirect, [{controller, "profile"}, {action, "show"}, {id, Participant:id()}]};
+	    {redirect, [{controller, "profile"}, {action, "index"}, {id, Participant:id()}]};
 	[] ->
 	    error_logger:info_msg("Participant ~p unknown~n", [Email]),
 	    {redirect, [{action, "login"}]}
