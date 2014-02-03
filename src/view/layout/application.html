@@ -10,6 +10,8 @@
     {% block javascript %}{% endblock %}
   </head>
   <body>
-	  {% for flash in boss_flash %} <div class="alert alert-block"><button type="button" class="close" data-dismiss="alert">&times;</button><h4>{{ flash.title }}</h4>{{ flash.message }} </div>{% endfor %}
+    {% include "layout/navigation.html" %}
+
+    {% for flash in boss_flash %} <div class="alert alert-block"><button type="button" class="close" data-dismiss="alert">&times;</button><h4>{{ flash.title }}</h4>{{ flash.message }} </div>{% endfor %}
     {% block content%}{% endblock %}
   </body>
