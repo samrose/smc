@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'selenium-webdriver'
+gem 'mechanize'
 gem 'cucumber'
 gem 'capybara'
 gem 'httparty'
