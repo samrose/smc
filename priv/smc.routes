@@ -27,3 +27,5 @@
 %% {404, [{controller, "world"}, {action, "lost"}]}.
 %% 500 Internal Error handler (only invoked in production)
 %% {500, [{controller, "world"}, {action, "calamity"}]}.
+
+%%{"/class/(\\w+)/blog/show/(\\w+)", [{controller, "blog_post"}, {action, "show"}, {classroom_id, '$1'}, {blog_post_id, '$2'}]}.

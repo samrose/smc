@@ -1,0 +1,8 @@
+{% extends "layout/application.html" %}
+{% block content %}
+    <ul>
+        {% for blog_post in blog_posts %}
+            <li><a href="{% url action="blog_post_show" classroom_id=classroom.id blog_post_id=blog_post.id %}">{{blog_post.title}}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

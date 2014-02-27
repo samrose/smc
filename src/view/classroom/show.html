@@ -6,9 +6,10 @@
   <h2>Blog Posts</h2>
     <ul>
       {% for blog_post in classroom.blog_posts %}
-        <li><a href="/blog_post/show/{{blog_post.id}}">{{blog_post.title}}</a></li>
+        <li><a href="{% url action="blog_post_show" classroom_id=classroom.id blog_post_id=blog_post.id %}">{{blog_post.title}}</a></li>
       {% endfor %}
     </ul>
+    <div class="read-more"><a href="{% url action="blog_post_index" classroom_id=classroom.id %}">View all blog posts in this classroom</a></div>
  </div>
  {% endif %}
 {% endblock %}

@@ -12,19 +12,21 @@ create('POST', [], Security) ->
   Now = erlang:now(),
   Title = Req:post_param("title"),
   Body = Req:post_param("body"),
-  ClassroomId = "test",
-  ParticipantId = "test",
+  ClassroomId = Req:post_param("classroom_id"),
+  ParticipantId = Req:post_param("participant_id"),
   CreatedOn = Now,
   ModifiedOn = Now,	
+  Post = blog_post:new(id,"classroom-530f8b57ee6da122a8000001","participant-530f8b57ee6da122a8000004", Title, Body, erlang:now(),erlang:now()),  
+  case Post:save() of
+    {ok, SavedPost} ->
+        {redirect, "/blog_post/show/" ++ SavedPost:id()};
+    {error, Reason} ->
+        Reason
+  end.
 
-  BlogPost = blog_post:new(id,ClassroomId,ParticipantId, Title, Body, CreatedOn,ModifiedOn),
-  BlogPost:save(),
-
-	{redirect, "/"}.
-
-show('GET', [BlogPostId], Security) ->
+show('GET', ["classroom_id",ClassroomId,"blog_post_id",BlogPostId], Security) ->
         BlogPost =  boss_db:find(BlogPostId),
-        Classroom = BlogPost:classroom_id(),
+        Classroom = ClassroomId,
         CurrentParticipantId = boss_session:get_session_data(SessionID,participant_id),
         error_logger:info_msg("ParticipantID: ~p~n", [CurrentParticipantId]),
         case security_lib:classroom_member(SessionID,Classroom) of
@@ -37,3 +39,13 @@ show('GET', [BlogPostId], Security) ->
                 %%{json, [{success, true}, {message, ''}, {doc, [{agent, Participant}, {classroom, Classroom}]}]}.
                 {ok, [{blog_post, BlogPost}]}
         end.
+        
+        
+%create_blog_post_comment('POST', [],Security) ->
+%    CommentSubject = Req:post_param("blog_post_comment_subject"),
+%    CommentBody = Req:post_param("blog_post_comment_body"),
+%    BlogPostId = Req:post_param("blog_post_id"),
+
+%end.
+
+
