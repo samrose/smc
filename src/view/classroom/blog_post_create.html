@@ -1,0 +1,18 @@
+{% extends "layout/application.html" %}
+{% block content %}
+<h1>Create a new blog post</h1>
+{% if errors %}
+<ul>
+  {% for error in errors %}
+    <li><p style="color: red;">{{error }}</p></li>
+  {% endfor %}
+</ul>
+{% endif %}
+<form action="/classroom/blog_post_create?classroom_id={{classroom.id}}" method="post">
+	<label>Title:</label>
+	<input type="text" name="title">{% if blog_post %}{{ blog_post.title }}{% endif %}
+	<label>Body:</label>
+  	<textarea name="body">{% if blog_post %}{{ blog_post.body }}{% endif %}</textarea>
+  	<input type="submit">
+</form>
+{% endblock %}

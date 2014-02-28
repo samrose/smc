@@ -14,7 +14,7 @@
 %% Note that routing across applications results in a 302 redirect.
 
 {"/", [{controller, "security"}, {action, "login"}]}.
-
+{"/my_smc", [{controller, "profile"}, {action, "my_smc"}]}.
 %% Security related actions
 {"/login", [{controller, "security"}, {action, "login"}]}.
 {"/logout", [{controller, "security"}, {action, "logout"}]}.

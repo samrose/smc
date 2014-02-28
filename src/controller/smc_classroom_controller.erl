@@ -46,4 +46,19 @@ blog_post_show('GET', ["classroom_id",ClassroomId,"blog_post_id",BlogPostId], Se
                 %%{json, [{success, true}, {message, ''}, {doc, [{agent, Participant}, {classroom, ClassroomId}]}]}.
                 {ok, [{blog_post, BlogPost}]}
         end.
-
+blog_post_create('GET', [], Security) ->
+  ok;
+blog_post_create('POST', [classroom_id,ClassroomId], Security) ->
+  Now = erlang:now(),
+  Title = Req:post_param("title"),
+  Body = Req:post_param("body"),
+  ParticipantId = boss_session:get_session_data(SessionID,participant_id),
+  CreatedOn = Now,
+  ModifiedOn = Now,
+  Post = blog_post:new(id,ClassroomId,ParticipantId, Title, Body, erlang:now(),erlang:now()),
+  case Post:save() of
+    {ok, SavedPost} ->
+        {redirect,"/classroom/blog_post_show/classroom_id/{{classroom.id}}/blog_post_id/" ++ SavedPost:id()};
+    {error, Reason} ->
+        Reason
+  end.

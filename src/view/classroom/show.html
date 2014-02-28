@@ -10,6 +10,7 @@
       {% endfor %}
     </ul>
     <div class="read-more"><a href="{% url action="blog_post_index" classroom_id=classroom.id %}">View all blog posts in this classroom</a></div>
+    <div class="create-blog-post"><a href="{% url action="blog_post_create" classroom_id=classroom.id %}">Create a new blog post</a></div>
  </div>
  {% endif %}
 {% endblock %}
